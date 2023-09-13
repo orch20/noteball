@@ -11,36 +11,30 @@
                     />
                 </div>
                 </div>
-
+                <Note
+                    v-for="note in notes"
+                    :key="note.id"
+                    :note="note"
+                />
                 <div class="field is-grouped is-grouped-right">
                 <div class="control">
                     <button
                       @click.prevent="addNewNote"
                       :disabled="!newNote"
                       class="button is-link has-background-success">Add New Note
-                      </button
-                    >
+                      </button>
                 </div>
                 
             </div>
         </div>
 
-        <div class="card mb-4" v-for="note in notes" :key="note.id">
-            <div class="card-content">
-            <div class="content">
-                {{ note.content }}
-            </div>
-            </div>
-            <footer class="card-footer">
-            <a href="#" class="card-footer-item">Edit</a>
-            <a href="#" class="card-footer-item">Delete</a>
-            </footer>
-        </div>
+        
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import Note from '@/components/Notes/Note.vue'
 
 const notes = ref([
     {
