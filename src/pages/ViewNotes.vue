@@ -15,6 +15,7 @@
                     v-for="note in notes"
                     :key="note.id"
                     :note="note"
+                    @deleteClicked="deleteNote"
                 />
                 <div class="field is-grouped is-grouped-right">
                 <div class="control">
@@ -61,5 +62,9 @@ const addNewNote = () => {
     newNoteInputFocus.value.focus()
     
 }
+
+const deleteNote = (id) => {
+    notes.value = notes.value.filter(note => note.id !== id)
+}  
 
 </script>
