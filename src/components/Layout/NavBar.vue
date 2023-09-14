@@ -18,6 +18,7 @@
               aria-label="menu"
               data-target="navbarBasicExample"
               role="button"
+              ref="ignoreElRef"
             >
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
@@ -25,7 +26,7 @@
             </a>
           </div>
 
-          <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': showMobileNav }">
+          <div v-on-click-outside="onClickOutsideHandler" id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': showMobileNav }">
        
 
             <div class="navbar-end">
@@ -44,10 +45,17 @@
 
 <script setup>
 import {ref} from 'vue';
+import { vOnClickOutside } from '@vueuse/components'
 
 const showMobileNav = ref(false);
+const ignoreElRef = ref(null);
 
-
+const onClickOutsideHandler =  [
+  () => {
+    showMobileNav.value = false
+  },
+  { ignore: [ignoreElRef] }
+]
 </script>
 
 <style>
