@@ -18,6 +18,12 @@ export const useStoreNotes = defineStore('storeNotes', {
   getters: {
     getNoteContent() {
       return (id) => this.notes.find((note) => note.id === id).content
+    },
+    totalNotesCount() {
+      return () => this.notes.length
+    },
+    totalCharactersCount() {
+      return () => this.notes.reduce((acc, note) => acc + note.content.length, 0)
     }
   },
   actions: {
