@@ -43,6 +43,9 @@
 
 <script setup>
 import { ref, computed, reactive } from 'vue'
+import { useStoreAuth } from '@/stores/storeAuth'
+
+const storeAuth = useStoreAuth()
 
 const registerLoginToggle = ref(false)
 
@@ -61,12 +64,10 @@ const onSubmit = () => {
     }
     else {
         if (registerLoginToggle.value) {
-            // Register
-            console.log('Register');
+            storeAuth.registerUser(credentials)
         }
         else {
-            // Login
-            console.log('Login');
+            storeAuth.loginUser(credentials)
         }
     }
 }

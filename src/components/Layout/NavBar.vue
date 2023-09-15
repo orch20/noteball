@@ -29,8 +29,8 @@
           <div v-on-click-outside="onClickOutsideHandler" id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': showMobileNav }">
        
             <div class="navbar-start">
-              <button class="button is-small is-info mt-3 ml-3">
-                Log Out
+              <button v-if="storeAuth.user.id" @click="logout" class="button is-small is-info mt-3 ml-3">
+                Log Out {{ storeAuth.user.email }}
               </button>
             </div>
             <div class="navbar-end">
@@ -50,6 +50,9 @@
 <script setup>
 import {ref} from 'vue';
 import { vOnClickOutside } from '@vueuse/components'
+import { useStoreAuth } from '@/stores/storeAuth'
+
+const storeAuth = useStoreAuth()
 
 const showMobileNav = ref(false);
 const ignoreElRef = ref(null);
@@ -60,6 +63,12 @@ const onClickOutsideHandler =  [
   },
   { ignore: [ignoreElRef] }
 ]
+
+const logout = () => {
+  storeAuth.logoutUser()
+  showMobileNav.value = false    
+}
+
 </script>
 
 <style>
