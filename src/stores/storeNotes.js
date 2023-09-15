@@ -45,7 +45,8 @@ export const useStoreNotes = defineStore('storeNotes', {
         querySnapshot.forEach((doc) => {
           const note = {
             id: doc.id,
-            content: doc.data().content
+            content: doc.data().content,
+            date: doc.data().date
           }
           notes.push(note)
         })
@@ -54,8 +55,7 @@ export const useStoreNotes = defineStore('storeNotes', {
     },
 
     async addNewNote(newContent) {
-      const date = Date.now().toString()
-
+      const date = new Date().getTime().toString()
       await addDoc(notesCollectionRef, {
         content: newContent,
         date
