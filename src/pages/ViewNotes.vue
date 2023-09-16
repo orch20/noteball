@@ -55,6 +55,4 @@ const addNewNote = () => {
 
 useWatchCharacters(newNote)
 
-
-
 </script>

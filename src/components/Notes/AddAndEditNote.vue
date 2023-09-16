@@ -6,9 +6,8 @@
             <div class="control">
                 <label v-if="label" class="label has-text-white"  >{{ label }}</label>
                 <textarea
-                    v-model="modelValue"
-                    @input="$emit('update:modelValue', modelValue)"
-                    @change="modelValue = ''"
+                    :value="modelValue"
+                    @input="$emit('update:modelValue', $event.target.value)"
                     class="textarea"
                     :placeholder="placeholder"
                     ref="textareaRef"
@@ -31,10 +30,9 @@
 import { ref } from 'vue'
 import {vAutofocus} from '@/directives/vAutofocus'
 
-const modelValue = ref(props.modelValue)
 const textareaRef = ref(null)
 
-const props = defineProps({
+defineProps({
     modelValue: {
         type: String,
         required: true
@@ -53,7 +51,9 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:modelValue'])
+
+
+defineEmits(['update:modelValue'])
 
 const focusTextarea = () => {
     textareaRef.value.focus()
@@ -62,7 +62,5 @@ const focusTextarea = () => {
 defineExpose({
     focusTextarea
 })
-
-
 
 </script>
