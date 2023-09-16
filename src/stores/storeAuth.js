@@ -6,6 +6,7 @@ import {
   onAuthStateChanged
 } from 'firebase/auth'
 import { auth } from '@/js/firebase.js'
+import { useStoreNotes } from '@/stores/storeNotes.js'
 
 export const useStoreAuth = defineStore('storeAuth', {
   state: () => ({
@@ -13,14 +14,17 @@ export const useStoreAuth = defineStore('storeAuth', {
   }),
   actions: {
     init() {
+      const notesStore = useStoreNotes()
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.user.id = user.uid
           this.user.email = user.email
           this.router.push({ name: 'notes' })
+          notesStore.init()
         } else {
           this.user = {}
           this.router.replace({ name: 'auth' })
+          notesStore.clear
         }
       })
     },
